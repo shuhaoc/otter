@@ -27,7 +27,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.TimeUnit;
 
-import com.google.common.collect.MigrateMap;
+import com.google.common.collect.MigrateMapUtil;
 import org.I0Itec.zkclient.DataUpdater;
 import org.I0Itec.zkclient.ExceptionUtil;
 import org.I0Itec.zkclient.IZkChildListener;
@@ -57,7 +57,6 @@ import org.slf4j.LoggerFactory;
 
 import com.alibaba.otter.shared.common.utils.zookeeper.ZkEventThread.ZkEvent;
 import com.google.common.base.Function;
-import com.google.common.collect.MapMaker;
 
 /**
  * 使用自定义的ZooKeeperx for zk connection
@@ -68,7 +67,7 @@ import com.google.common.collect.MapMaker;
 public class ZkClientx implements Watcher {
 
     // 对于zkclient进行一次缓存，避免一个jvm内部使用多个zk connection
-    private static Map<String, ZkClientx> clients = MigrateMap.makeComputingMap(new Function<String, ZkClientx>() {
+    private static Map<String, ZkClientx> clients = MigrateMapUtil.makeComputingMap(new Function<String, ZkClientx>() {
 
                                                       public ZkClientx apply(String servers) {
                                                           return new ZkClientx(servers);

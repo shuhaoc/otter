@@ -25,6 +25,7 @@ import com.alibaba.otter.manager.biz.monitor.AlarmRecovery;
 import com.alibaba.otter.shared.common.model.config.alarm.AlarmRule;
 import com.alibaba.otter.shared.common.model.config.alarm.MonitorName;
 import com.google.common.collect.MapMaker;
+import com.google.common.collect.MigrateMapUtil;
 
 /**
  * @author zebin.xuzb 2012-9-11 下午3:47:28
@@ -34,7 +35,7 @@ public class DefaultAlarmController implements AlarmController {
 
     // seconds
     private Long                    DEFAULT_THRESHOLD = 1800L;
-    private Map<PoolKey, PoolValue> pool              = new MapMaker().expireAfterWrite(1, TimeUnit.HOURS).makeMap();
+    private Map<PoolKey, PoolValue> pool              = MigrateMapUtil.makeMapWithExpire(1,TimeUnit.HOURS).makeMap();
     private AlarmRecovery           restartAlarmRecovery;
 
     @Override

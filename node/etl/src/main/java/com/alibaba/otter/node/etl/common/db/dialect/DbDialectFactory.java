@@ -35,8 +35,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import com.alibaba.otter.node.etl.common.datasource.DataSourceService;
 import com.alibaba.otter.shared.common.model.config.data.db.DbMediaSource;
 import com.google.common.base.Function;
-import com.google.common.collect.GenericMapMaker;
-import com.google.common.collect.MapEvictionListener;
 import com.google.common.collect.MapMaker;
 
 /**

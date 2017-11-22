@@ -19,6 +19,7 @@ package com.alibaba.otter.manager.biz.common.arbitrate;
 import java.util.List;
 import java.util.Map;
 
+import com.google.common.collect.MigrateMapUtil;
 import org.springframework.beans.factory.InitializingBean;
 
 import com.alibaba.otter.manager.biz.config.channel.ChannelService;
@@ -100,7 +101,7 @@ public class ArbitrateConfigImpl implements ArbitrateConfig, InitializingBean {
 
     public void afterPropertiesSet() throws Exception {
         // 获取一下nid变量
-        channelMapping = new MapMaker().makeComputingMap(new Function<Long, Long>() {
+        channelMapping = MigrateMapUtil.makeComputingMap(new Function<Long, Long>() {
 
             public Long apply(Long pipelineId) {
                 // 处理下pipline -> channel映射关系不存在的情况

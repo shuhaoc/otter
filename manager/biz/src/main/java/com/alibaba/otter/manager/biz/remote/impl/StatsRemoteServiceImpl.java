@@ -24,6 +24,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 
+import com.google.common.collect.MigrateMapUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
@@ -70,13 +71,13 @@ public class StatsRemoteServiceImpl implements StatsRemoteService {
         CommunicationRegistry.regist(StatisticsEventType.tableStat, this);
         CommunicationRegistry.regist(StatisticsEventType.throughputStat, this);
 
-        delayStats = new MapMaker().makeComputingMap(new Function<Long, AvgStat>() {
+        delayStats = MigrateMapUtil.makeComputingMap(new Function<Long, AvgStat>() {
 
             public AvgStat apply(Long pipelineId) {
                 return new AvgStat();
             }
         });
-        throughputStats = new MapMaker().makeComputingMap(new Function<Long, Map<ThroughputType, ThroughputStat>>() {
+        throughputStats = MigrateMapUtil.makeComputingMap(new Function<Long, Map<ThroughputType, ThroughputStat>>() {
 
             public Map<ThroughputType, ThroughputStat> apply(Long pipelineId) {
                 return new HashMap<ThroughputType, ThroughputStat>();

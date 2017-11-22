@@ -18,6 +18,7 @@ package com.alibaba.otter.common.push;
 
 import java.util.Map;
 
+import com.google.common.collect.MigrateMapUtil;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.context.ApplicationContext;
@@ -25,7 +26,6 @@ import org.springframework.context.ApplicationContextAware;
 
 import com.alibaba.otter.common.push.media.MediaSubscribeManager;
 import com.google.common.base.Function;
-import com.google.common.collect.MapMaker;
 
 /**
  * @author zebin.xuzb 2012-9-19 上午10:15:22
@@ -35,7 +35,7 @@ public class SubscribeManagerFactory implements ApplicationContextAware {
 
     private static ApplicationContext                         context        = null;
 
-    private static final Map<SubscribeType, SubscribeManager> innerContainer = new MapMaker().makeComputingMap(new Function<SubscribeType, SubscribeManager>() {
+    private static final Map<SubscribeType, SubscribeManager> innerContainer = MigrateMapUtil.makeComputingMap(new Function<SubscribeType, SubscribeManager>() {
 
                                                                                  @Override
                                                                                  public SubscribeManager apply(SubscribeType input) {

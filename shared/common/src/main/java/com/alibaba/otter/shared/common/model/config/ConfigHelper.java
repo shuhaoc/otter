@@ -21,7 +21,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import com.google.common.collect.MigrateMap;
+import com.google.common.collect.MigrateMapUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.MatchResult;
@@ -39,7 +39,6 @@ import com.alibaba.otter.shared.common.model.config.data.DataMediaPair;
 import com.alibaba.otter.shared.common.model.config.data.DataMediaSource;
 import com.alibaba.otter.shared.common.model.config.pipeline.Pipeline;
 import com.google.common.base.Function;
-import com.google.common.collect.MapMaker;
 
 /**
  * 常用的config处理帮助类
@@ -50,7 +49,7 @@ import com.google.common.collect.MapMaker;
 public class ConfigHelper {
 
     public static final String          MODE_PATTERN = "(.*)(\\[(\\d+)\\-(\\d+)\\])(.*)"; // 匹配offer[1-128]
-    private static Map<String, Pattern> patterns     = MigrateMap.makeComputingMap(new Function<String, Pattern>() {
+    private static Map<String, Pattern> patterns     = MigrateMapUtil.makeComputingMap(new Function<String, Pattern>() {
 
                                                          public Pattern apply(String input) {
                                                              PatternCompiler pc = new Perl5Compiler();

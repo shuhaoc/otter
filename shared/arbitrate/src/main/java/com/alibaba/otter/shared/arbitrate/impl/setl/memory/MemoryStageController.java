@@ -24,6 +24,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicLong;
 
+import com.google.common.collect.MigrateMapUtil;
 import org.springframework.util.CollectionUtils;
 
 import com.alibaba.otter.shared.arbitrate.impl.config.ArbitrateConfigUtils;
@@ -52,7 +53,7 @@ public class MemoryStageController extends ArbitrateLifeCycle {
     public MemoryStageController(Long pipelineId){
         super(pipelineId);
 
-        replys = new MapMaker().makeComputingMap(new Function<StageType, ReplyProcessQueue>() {
+        replys = MigrateMapUtil.makeComputingMap(new Function<StageType, ReplyProcessQueue>() {
 
             public ReplyProcessQueue apply(StageType input) {
                 int size = ArbitrateConfigUtils.getParallelism(getPipelineId()) * 10;

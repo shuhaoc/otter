@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import com.google.common.collect.MigrateMapUtil;
 import org.I0Itec.zkclient.IZkStateListener;
 import org.apache.commons.lang.StringUtils;
 import org.apache.zookeeper.Watcher.Event.KeeperState;
@@ -27,7 +28,6 @@ import org.apache.zookeeper.Watcher.Event.KeeperState;
 import com.alibaba.otter.shared.arbitrate.impl.config.ArbitrateConfigUtils;
 import com.alibaba.otter.shared.common.utils.zookeeper.ZkClientx;
 import com.google.common.base.Function;
-import com.google.common.collect.MapMaker;
 
 /**
  * 封装了ZooKeeper，使其支持节点的优先顺序，比如美国机房的节点会优先加载美国对应的zk集群列表，都失败后才会选择加载杭州的zk集群列表
@@ -39,7 +39,7 @@ public class ZooKeeperClient {
 
     private static String               cluster;
     private static int                  sessionTimeout = 10 * 1000;
-    private static Map<Long, ZkClientx> clients        = new MapMaker().makeComputingMap(new Function<Long, ZkClientx>() {
+    private static Map<Long, ZkClientx> clients        = MigrateMapUtil.makeComputingMap(new Function<Long, ZkClientx>() {
 
                                                            public ZkClientx apply(Long pipelineId) {
                                                                return createClient();

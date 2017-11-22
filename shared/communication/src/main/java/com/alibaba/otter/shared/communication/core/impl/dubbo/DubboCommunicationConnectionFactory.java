@@ -28,7 +28,7 @@ import com.alibaba.otter.shared.communication.core.impl.connection.Communication
 import com.alibaba.otter.shared.communication.core.impl.connection.CommunicationConnectionFactory;
 import com.alibaba.otter.shared.communication.core.model.CommunicationParam;
 import com.google.common.base.Function;
-import com.google.common.collect.MigrateMap;
+import com.google.common.collect.MigrateMapUtil;
 
 /**
  * dubbo rpc服务链接的factory
@@ -46,7 +46,7 @@ public class DubboCommunicationConnectionFactory implements CommunicationConnect
     private Map<String, CommunicationEndpoint> connections       = null;
 
     public DubboCommunicationConnectionFactory(){
-        connections = MigrateMap.makeComputingMap(new Function<String, CommunicationEndpoint>() {
+        connections = MigrateMapUtil.makeComputingMap(new Function<String, CommunicationEndpoint>() {
 
             public CommunicationEndpoint apply(String serviceUrl) {
                 return proxyFactory.getProxy(protocol.refer(CommunicationEndpoint.class, URL.valueOf(serviceUrl)));

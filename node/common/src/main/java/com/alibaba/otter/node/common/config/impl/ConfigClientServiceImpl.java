@@ -19,6 +19,7 @@ package com.alibaba.otter.node.common.config.impl;
 import java.util.List;
 import java.util.Map;
 
+import com.google.common.collect.MigrateMapUtil;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +38,6 @@ import com.alibaba.otter.shared.common.utils.cache.RefreshMemoryMirror.ComputeFu
 import com.alibaba.otter.shared.communication.model.config.FindChannelEvent;
 import com.alibaba.otter.shared.communication.model.config.FindNodeEvent;
 import com.google.common.base.Function;
-import com.google.common.collect.MapMaker;
 
 /**
  * task节点对应的config对象管理服务
@@ -120,7 +120,7 @@ public class ConfigClientServiceImpl implements InternalConfigClientService, Arb
 
         this.nid = Long.valueOf(nid);
 
-        channelMapping = new MapMaker().makeComputingMap(new Function<Long, Long>() {
+        channelMapping = MigrateMapUtil.makeComputingMap(new Function<Long, Long>() {
 
             public Long apply(Long pipelineId) {
                 // 处理下pipline -> channel映射关系不存在的情况

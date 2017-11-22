@@ -19,6 +19,7 @@ package com.alibaba.otter.shared.arbitrate.impl.setl.rpc;
 import java.util.List;
 import java.util.Map;
 
+import com.google.common.collect.MigrateMapUtil;
 import org.apache.commons.lang.ClassUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,7 +55,7 @@ public class RpcStageController extends ArbitrateLifeCycle implements ProcessLis
     public RpcStageController(Long pipelineId){
         super(pipelineId);
 
-        replys = new MapMaker().makeComputingMap(new Function<StageType, ReplyProcessQueue>() {
+        replys = MigrateMapUtil.makeComputingMap(new Function<StageType, ReplyProcessQueue>() {
 
             public ReplyProcessQueue apply(StageType input) {
                 int size = ArbitrateConfigUtils.getParallelism(getPipelineId()) * 10;
