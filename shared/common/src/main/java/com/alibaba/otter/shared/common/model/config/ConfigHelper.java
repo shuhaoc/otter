@@ -21,6 +21,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import com.google.common.collect.MigrateMap;
 import org.apache.commons.lang.StringUtils;
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.MatchResult;
@@ -49,7 +50,7 @@ import com.google.common.collect.MapMaker;
 public class ConfigHelper {
 
     public static final String          MODE_PATTERN = "(.*)(\\[(\\d+)\\-(\\d+)\\])(.*)"; // 匹配offer[1-128]
-    private static Map<String, Pattern> patterns     = new MapMaker().makeComputingMap(new Function<String, Pattern>() {
+    private static Map<String, Pattern> patterns     = MigrateMap.makeComputingMap(new Function<String, Pattern>() {
 
                                                          public Pattern apply(String input) {
                                                              PatternCompiler pc = new Perl5Compiler();

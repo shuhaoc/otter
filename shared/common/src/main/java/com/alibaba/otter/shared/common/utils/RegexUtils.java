@@ -18,6 +18,7 @@ package com.alibaba.otter.shared.common.utils;
 
 import java.util.Map;
 
+import com.google.common.collect.MigrateMap;
 import org.apache.commons.lang.StringUtils;
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.Pattern;
@@ -38,7 +39,7 @@ public class RegexUtils {
     private static Map<String, Pattern> patterns = null;
 
     static {
-        patterns = new MapMaker().softValues().makeComputingMap(new Function<String, Pattern>() {
+        patterns = MigrateMap.makeComputingMap(new MapMaker().softValues(), new Function<String, Pattern>() {
 
             public Pattern apply(String pattern) {
                 try {
